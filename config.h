@@ -40,6 +40,10 @@ static const Rule rules[] = {
     { "KeePassXC",     NULL,     NULL,           1 << 2,    0,          0,           0,        -1 },
 	{ "steam",         NULL,     "Steam",        1 << 3,    0,          0,           0,        -1 },
     { "Spotify",       NULL,     NULL,           1 << 4,    0,          0,           0,        -1 },
+
+    // Dead by Daylight
+    { "steam_app_381210", NULL,  NULL,           1 << 5,    0,          0,           0,        -1 },
+
     { NULL,            NULL,    "Event Tester",  0,         0,          0,           1,        -1 }, /* xev */
 };
 
