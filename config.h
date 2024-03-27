@@ -37,6 +37,7 @@ static const Rule rules[] = {
 	{ "Gimp",          NULL,     NULL,           0,         1,          0,           0,        -1 },
 	{ "Brave-browser", NULL,     NULL,           1,         0,          0,           0,        -1 },
 	{ "kitty",         NULL,     NULL,           1 << 1,    0,          1,           0,        -1 },
+    { "KeePassXC",     NULL,     NULL,           1 << 2,    0,          0,           0,        -1 },
 	{ "steam",         NULL,     "Steam",        1 << 3,    0,          0,           0,        -1 },
     { "Spotify",       NULL,     NULL,           1 << 4,    0,          0,           0,        -1 },
     { NULL,            NULL,    "Event Tester",  0,         0,          0,           1,        -1 }, /* xev */
@@ -69,7 +70,7 @@ static const Layout layouts[] = {
 /* commands */
 static const char *runCmd[]         = { "rofi", "-show", "drun", NULL };
 static const char *terminalCmd[]    = { "kitty", NULL };
-static const char *fileManagerCmd[] = { "dolphin", NULL };
+static const char *fileManagerCmd[] = { "thunar", NULL };
 static const char *browserCmd[]     = { "brave-browser", NULL };
 static const char *musicPlayerCmd[] = { "flatpak", "run", "com.spotify.Client", NULL };
 
@@ -80,6 +81,19 @@ static const Key keys[] = {
     { MODKEY,                       XK_e,      spawn,          {.v = fileManagerCmd } },
     { MODKEY,                       XK_b,      spawn,          {.v = browserCmd } },
     { MODKEY,                       XK_s,      spawn,          {.v = musicPlayerCmd } },
+    
+    // Volume decrease, increase and mute toggle.
+    { 0,                            0x1008ff11, spawn,         SHCMD("amixer sset Master 5%- unmute") },
+    { 0,                            0x1008ff13, spawn,         SHCMD("amixer sset Master 5%+ unmute") },
+    { 0,                            0x1008ff12, spawn,         SHCMD("amixer sset Master $(amixer get Master | grep -q '\\[on\\]' && echo 'mute' || echo 'unmute')") },
+
+    // Backlight controls
+    { 0,                            0x1008ff03, spawn,         SHCMD("brightnessctl set 200-") },
+    { 0,                            0x1008ff02, spawn,         SHCMD("brightnessctl set 200+") },
+
+    // Screenshots
+    { MODKEY|ShiftMask,             XK_s,      spawn,          SHCMD("flameshot gui --clipboard") },
+    { MODKEY|ControlMask,           XK_s,      spawn,          SHCMD("flameshot gui -p $HOME/Pictures/Screenshots --clipboard") },
 
 	{ MODKEY|ShiftMask,             XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
