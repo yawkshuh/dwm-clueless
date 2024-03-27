@@ -3,6 +3,9 @@
 #picom -CG --no-fading-openclose &
 picom --config "$HOME/.config/picom.conf" &
 /usr/lib/polkit-kde-authentication-agent-1 &
+nm-applet --no-agent &
+pasystray &
+
 # nitrogen /home/riccardo/Pictures/Wallpapers/Microsoft/393890-windows-11-microsoft-background-4k-pc-wallpaper.jpg &
 nitrogen --restore &
 
