@@ -2,7 +2,8 @@
 
 #picom -CG --no-fading-openclose &
 picom --config "$HOME/.config/picom.conf" &
-/usr/lib/polkit-kde-authentication-agent-1 &
+# /usr/lib/polkit-kde-authentication-agent-1 &
+/usr/libexec/kf6/polkit-kde-authentication-agent-1 &
 nm-applet --no-agent &
 pasystray &
 dunst &
@@ -14,7 +15,7 @@ rog-control-center &
 nitrogen --restore &
 
 while true; do
-    xsetroot -name "Battery: $(cat /sys/class/power_supply/BAT0/capacity)% / $(date +%d"/"%m"/"%Y" "%R)"
+    xsetroot -name "Battery: $(cat /sys/class/power_supply/BAT0/capacity)% | $(date +%d"/"%m"/"%Y" "%R) "
     sleep 5
 done &
 
