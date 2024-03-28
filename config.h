@@ -72,11 +72,12 @@ static const Layout layouts[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
-static const char *runCmd[]         = { "rofi", "-show", "drun", NULL };
-static const char *terminalCmd[]    = { "kitty", NULL };
-static const char *fileManagerCmd[] = { "thunar", NULL };
-static const char *browserCmd[]     = { "brave-browser", NULL };
-static const char *musicPlayerCmd[] = { "flatpak", "run", "com.spotify.Client", NULL };
+static const char *runCmd[]            = { "rofi", "-show", "drun", NULL };
+static const char *terminalCmd[]       = { "kitty", NULL };
+static const char *fileManagerCmd[]    = { "thunar", NULL };
+static const char *browserCmd[]        = { "brave-browser", "--password-store=kwallet5", NULL };
+static const char *browserPrivateCmd[] = { "brave-browser", "--password-store=kwallet5", "--incognito", NULL };
+static const char *musicPlayerCmd[]    = { "flatpak", "run", "com.spotify.Client", NULL };
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -84,6 +85,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_Return, spawn,          {.v = terminalCmd } },
     { MODKEY,                       XK_e,      spawn,          {.v = fileManagerCmd } },
     { MODKEY,                       XK_b,      spawn,          {.v = browserCmd } },
+    { MODKEY|ShiftMask,             XK_b,      spawn,          {.v = browserPrivateCmd } },
     { MODKEY,                       XK_s,      spawn,          {.v = musicPlayerCmd } },
     
     // Volume decrease, increase and mute toggle.
@@ -102,7 +104,7 @@ static const Key keys[] = {
     // Alt-tab between last used clients.
 	{ Mod1Mask,                     XK_Tab,    view,           {0} },
 
-	{ MODKEY|ShiftMask,             XK_b,      togglebar,      {0} },
+	{ MODKEY|ControlMask,           XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },

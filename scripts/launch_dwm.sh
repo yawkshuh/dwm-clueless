@@ -4,6 +4,8 @@
 picom --config "$HOME/.config/picom.conf" &
 # /usr/lib/polkit-kde-authentication-agent-1 &
 /usr/libexec/kf6/polkit-kde-authentication-agent-1 &
+kwalletd6 &
+
 nm-applet --no-agent &
 pasystray &
 dunst &
