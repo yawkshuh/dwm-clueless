@@ -24,4 +24,5 @@ done &
 xset s off -dpms
 setxkbmap -layout us
 xsetroot -cursor_name left_ptr
+xrdb $HOME/.Xresources
 exec dwm
