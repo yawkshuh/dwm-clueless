@@ -2,6 +2,7 @@
 
 /* appearance */
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
+static const unsigned int gappx     = 5;        /* gaps between windows */
 static const unsigned int snap      = 26;       /* snap pixel */
 static const int swallowfloating    = 1;        /* 1 means swallow floating windows by default */
 static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
@@ -33,22 +34,21 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class           instance  title           tags mask  isfloating  isterminal   noswallow  monitor */
-	{ "Gimp",          NULL,     NULL,           0,         1,          0,           0,        -1 },
-	{ "Brave-browser", NULL,     NULL,           1,         0,          0,           0,        -1 },
-	{ "kitty",         NULL,     NULL,           1 << 1,    0,          1,           0,        -1 },
-    { "KeePassXC",     NULL,     NULL,           1 << 2,    0,          0,           0,        -1 },
-	{ "steam",         NULL,     "Steam",        1 << 3,    0,          0,           0,        -1 },
-    { "Spotify",       NULL,     NULL,           1 << 4,    0,          0,           0,        -1 },
+	/* class             instance  title           tags mask  isfloating  isterminal   noswallow  monitor */
+	{ "Gimp",            NULL,     NULL,           0,         1,          0,           0,        -1 },
+	{ "thorium-browser", NULL,     NULL,           1,         0,          0,           0,        -1 },
+	{ "kitty",           NULL,     NULL,           1 << 1,    0,          1,           0,        -1 },
+   	{ "KeePassXC",       NULL,     NULL,           1 << 2,    0,          0,           0,        -1 },
+	{ "steam",           NULL,     "Steam",        1 << 3,    0,          0,           0,        -1 },
+	{ "Spotify",         NULL,     NULL,           1 << 4,    0,          0,           0,        -1 },
 
-    // Dead by Daylight
-    { "steam_app_381210", NULL,  NULL,           1 << 5,    0,          0,           0,        -1 },
-
-    { NULL,            NULL,    "Event Tester",  0,         0,          0,           1,        -1 }, /* xev */
+	// Dead by Daylight
+	{ "steam_app_381210", NULL,  NULL,           1 << 5,    0,          0,           0,        -1 },
+	{ NULL,               NULL,    "Event Tester",  0,         0,          0,           1,        -1 }, /* xev */
 };
 
 /* layout(s) */
-static const float mfact        = 0.55; /* factor of master area size [0.05..0.95] */
+static const float mfact          = 0.55; /* factor of master area size [0.05..0.95] */
 static const int   nmaster        = 1;    /* number of clients in master area */
 static const int   resizehints    = 1;    /* 1 means respect size hints in tiled resizals */
 static const int   lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
@@ -75,33 +75,33 @@ static const Layout layouts[] = {
 static const char *runCmd[]            = { "rofi", "-show", "drun", NULL };
 static const char *terminalCmd[]       = { "kitty", NULL };
 static const char *fileManagerCmd[]    = { "thunar", NULL };
-static const char *browserCmd[]        = { "brave-browser", "--password-store=kwallet5", NULL };
-static const char *browserPrivateCmd[] = { "brave-browser", "--password-store=kwallet5", "--incognito", NULL };
+static const char *browserCmd[]        = { "thorium-browser", "--use-cmd-decoder=validating", "--use-gl=desktop", NULL };
+static const char *browserPrivateCmd[] = { "thorium-browser", "--use-cmd-decoder=validating", "--use-gl=desktop", "--incognito", NULL };
 static const char *musicPlayerCmd[]    = { "flatpak", "run", "com.spotify.Client", NULL };
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_r,      spawn,          {.v = runCmd } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = terminalCmd } },
-    { MODKEY,                       XK_e,      spawn,          {.v = fileManagerCmd } },
-    { MODKEY,                       XK_b,      spawn,          {.v = browserCmd } },
-    { MODKEY|ShiftMask,             XK_b,      spawn,          {.v = browserPrivateCmd } },
-    { MODKEY,                       XK_s,      spawn,          {.v = musicPlayerCmd } },
+	{ MODKEY,                       XK_e,      spawn,          {.v = fileManagerCmd } },
+	{ MODKEY,                       XK_b,      spawn,          {.v = browserCmd } },
+	{ MODKEY|ShiftMask,             XK_b,      spawn,          {.v = browserPrivateCmd } },
+	{ MODKEY,                       XK_s,      spawn,          {.v = musicPlayerCmd } },
     
-    // Volume decrease, increase and mute toggle.
-    { 0,                            0x1008ff11, spawn,         SHCMD("amixer sset Master 5%- unmute") },
-    { 0,                            0x1008ff13, spawn,         SHCMD("amixer sset Master 5%+ unmute") },
-    { 0,                            0x1008ff12, spawn,         SHCMD("amixer sset Master $(amixer get Master | grep -q '\\[on\\]' && echo 'mute' || echo 'unmute')") },
+	// Volume decrease, increase and mute toggle.
+	{ 0,                            0x1008ff11, spawn,         SHCMD("amixer sset Master 5%- unmute") },
+	{ 0,                            0x1008ff13, spawn,         SHCMD("amixer sset Master 5%+ unmute") },
+	{ 0,                            0x1008ff12, spawn,         SHCMD("amixer sset Master $(amixer get Master | grep -q '\\[on\\]' && echo 'mute' || echo 'unmute')") },
 
-    // Backlight controls
-    { 0,                            0x1008ff03, spawn,         SHCMD("brightnessctl set 200-") },
-    { 0,                            0x1008ff02, spawn,         SHCMD("brightnessctl set 200+") },
+	// Backlight controls
+	{ 0,                            0x1008ff03, spawn,         SHCMD("brightnessctl set 200-") },
+	{ 0,                            0x1008ff02, spawn,         SHCMD("brightnessctl set 200+") },
+	
+	// Screenshots
+	{ MODKEY|ShiftMask,             XK_s,      spawn,          SHCMD("flameshot gui --clipboard") },
+	{ MODKEY|ControlMask,           XK_s,      spawn,          SHCMD("flameshot gui -p $HOME/Pictures/Screenshots --clipboard") },
 
-    // Screenshots
-    { MODKEY|ShiftMask,             XK_s,      spawn,          SHCMD("flameshot gui --clipboard") },
-    { MODKEY|ControlMask,           XK_s,      spawn,          SHCMD("flameshot gui -p $HOME/Pictures/Screenshots --clipboard") },
-
-    // Alt-tab between last used clients.
+	// Alt-tab between last used clients.
 	{ Mod1Mask,                     XK_Tab,    view,           {0} },
 
 	{ MODKEY|ControlMask,           XK_b,      togglebar,      {0} },
