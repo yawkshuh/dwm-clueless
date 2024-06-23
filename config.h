@@ -37,7 +37,7 @@ static const Rule rules[] = {
 	/* class             instance  title           tags mask  isfloating  isterminal   noswallow  monitor */
 	{ "Gimp",            NULL,     NULL,           0,         1,          0,           0,        -1 },
 	{ "Thorium-browser", NULL,     NULL,           1,         0,          0,           0,        -1 },
-	{ "kitty",           NULL,     NULL,           1 << 1,    0,          1,           0,        -1 },
+	{ "org.wezfurlong.wezterm",           NULL,     NULL,           1 << 1,    0,          1,           0,        -1 },
    	{ "KeePassXC",       NULL,     NULL,           1 << 2,    0,          0,           0,        -1 },
 	{ "steam",           NULL,     "Steam",        1 << 3,    0,          0,           0,        -1 },
 	{ "Spotify",         NULL,     NULL,           1 << 4,    0,          0,           0,        -1 },
@@ -73,7 +73,7 @@ static const Layout layouts[] = {
 
 /* commands */
 static const char *runCmd[]            = { "rofi", "-show", "drun", NULL };
-static const char *terminalCmd[]       = { "kitty", NULL };
+static const char *terminalCmd[]       = { "wezterm", NULL };
 static const char *fileManagerCmd[]    = { "thunar", NULL };
 static const char *browserCmd[]        = { "thorium-browser", "--use-cmd-decoder=validating", "--use-gl=desktop", NULL };
 static const char *browserPrivateCmd[] = { "thorium-browser", "--use-cmd-decoder=validating", "--use-gl=desktop", "--incognito", NULL };
